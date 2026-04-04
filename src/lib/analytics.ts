@@ -311,7 +311,7 @@ export function detectRecurring(transactions: Transaction[]): RecurringCharge[] 
   const merchantMap: Record<string, Transaction[]> = {};
   for (const t of transactions) {
     if (t.amount >= 0) continue;
-    const key = t.description.toUpperCase().replace(/\s+\d+.*$/, '').trim().slice(0, 20);
+    const key = t.description.toUpperCase().replace(/\s\d[\w\s]*$/, '').trim().slice(0, 20);
     if (!merchantMap[key]) merchantMap[key] = [];
     merchantMap[key].push(t);
   }
@@ -424,7 +424,7 @@ export function detectMicroLeaks(transactions: Transaction[]): MicroLeak[] {
   const merchantMap: Record<string, Transaction[]> = {};
   for (const t of transactions) {
     if (t.amount >= 0) continue;
-    const key = t.description.toUpperCase().replace(/\s+\d+.*$/, '').trim().slice(0, 25);
+    const key = t.description.toUpperCase().replace(/\s\d[\w\s]*$/, '').trim().slice(0, 25);
     if (!merchantMap[key]) merchantMap[key] = [];
     merchantMap[key].push(t);
   }

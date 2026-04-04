@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FinPulse — Financial Vital Signs
+
+FinPulse is a Next.js web application that analyzes your bank statement CSV and surfaces key financial health metrics — savings rate, emergency runway, overdraft risk, spending anomalies, and micro-leaks — in a single dashboard.
+
+## Features
+
+- **Financial Vital Signs**: Savings rate, debt-to-income ratio, emergency runway, expense volatility, and composite stress score
+- **Balance Timeline**: Interactive chart of your account balance with anomaly markers
+- **Emergency Buffer Analysis**: Monte Carlo simulation (500 paths, 30-day horizon) with overdraft risk gauges and auto-savings plan
+- **Anomaly Detection**: MAD-based Z-score flagging of unusual transactions
+- **Micro-Leak Detection**: Identifies small recurring spending patterns with savings potential
+- **Savings Plans**: Three AI-generated savings plans (conservative / balanced / aggressive)
+- **AI Assessment**: Doctor-note style narrative (uses OpenAI if `OPENAI_API_KEY` is set, otherwise local fallback)
+
+## Supported CSV Formats
+
+- Chase (`Date`, `Description`, `Amount`, `Running Balance`)
+- Bank of America (`Date`, `Description`, `Amount`, `Balance`)
+- Wells Fargo (`Date`, `Description`, `Amount`, `Balance`)
+- Generic (same column names as BofA/WF)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Upload a bank statement CSV or click **Try with Sample Student Data** to explore with pre-generated data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|---|---|
+| `OPENAI_API_KEY` | (Optional) Enables GPT-4o-mini financial narrative. Falls back to local if unset. |
 
-## Learn More
+## Docker
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker-compose up --build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js 14** (App Router) + TypeScript
+- **TailwindCSS** for styling
+- **Recharts** for charts (radar, area, line)
+- **All analytics in TypeScript** — no Python required
