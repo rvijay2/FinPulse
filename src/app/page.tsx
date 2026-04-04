@@ -118,7 +118,7 @@ export default function LandingPage() {
       </div>
 
       <footer className="text-center py-6 text-slate-600 text-sm">
-        No data is stored. All analysis runs in your browser.
+        No data is stored or shared. Analysis runs on our secure server.
       </footer>
     </main>
   );
