@@ -27,7 +27,7 @@ export function VitalsRadar({ vitals }: VitalsRadarProps) {
           <PolarGrid stroke="#e2e8f0" />
           <PolarAngleAxis dataKey="subject" tick={{ fontSize: 11, fill: '#64748b' }} />
           <Radar name="Score" dataKey="A" stroke="#6366f1" fill="#6366f1" fillOpacity={0.25} strokeWidth={2} />
-          <Tooltip formatter={(value: number) => [`${Math.round(value)}/100`, 'Health Score']} />
+          <Tooltip formatter={(value) => [`${Math.round(Number(value))}/100`, 'Health Score']} />
         </RadarChart>
       </ResponsiveContainer>
     </div>

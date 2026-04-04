@@ -7,7 +7,7 @@ interface MonteCarloChartProps {
   currentBalance: number;
 }
 
-export function MonteCarloChart({ simulation, currentBalance: _currentBalance }: MonteCarloChartProps) {
+export function MonteCarloChart({ simulation }: MonteCarloChartProps) {
   const paths = simulation.monteCarloPaths.slice(0, 20);
   
   const chartData = Array.from({ length: 31 }, (_, i) => {
@@ -27,7 +27,7 @@ export function MonteCarloChart({ simulation, currentBalance: _currentBalance }:
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis dataKey="day" tick={{ fontSize: 11 }} tickFormatter={(v) => `Day ${v}`} />
           <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v}`} />
-          <Tooltip formatter={(value: number) => [`$${Math.round(value)}`, '']} labelFormatter={(l) => `Day ${l}`} />
+          <Tooltip formatter={(value) => [`$${Math.round(Number(value))}`, '']} labelFormatter={(l) => `Day ${l}`} />
           <ReferenceLine y={0} stroke="#ef4444" strokeDasharray="4 4" label={{ value: 'Zero Balance', fill: '#ef4444', fontSize: 11 }} />
           <Area type="monotone" dataKey="max" stroke="none" fill="#dbeafe" fillOpacity={0.5} />
           <Area type="monotone" dataKey="min" stroke="none" fill="white" fillOpacity={1} />

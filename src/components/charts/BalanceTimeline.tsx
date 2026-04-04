@@ -39,7 +39,7 @@ export function BalanceTimeline({ transactions, anomalies }: BalanceTimelineProp
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis dataKey="date" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
           <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v}`} />
-          <Tooltip formatter={(v: number) => [`$${Math.round(v)}`, 'Balance']} />
+          <Tooltip formatter={(v) => [`$${Math.round(Number(v))}`, 'Balance']} />
           <Line type="monotone" dataKey="balance" stroke="#6366f1" strokeWidth={2} dot={false} />
           {anomalyPoints.map((pt, i) => (
             <ReferenceDot key={i} x={pt.date} y={pt.balance} r={5} fill="#ef4444" stroke="white" strokeWidth={2} />
