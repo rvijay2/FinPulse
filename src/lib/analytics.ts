@@ -307,13 +307,15 @@ export function detectAnomalies(transactions: Transaction[]): Anomaly[] {
   return anomalies.sort((a, b) => b.zscore - a.zscore);
 }
 
+const MAX_MERCHANT_KEY_LENGTH = 20;
+
 export function detectRecurring(transactions: Transaction[]): RecurringCharge[] {
   const merchantMap: Record<string, Transaction[]> = {};
   for (const t of transactions) {
     if (t.amount >= 0) continue;
     const upper = t.description.toUpperCase();
     const spaceDigitIdx = upper.search(/ \d/);
-    const key = (spaceDigitIdx >= 0 ? upper.slice(0, spaceDigitIdx) : upper).trim().slice(0, 20);
+    const key = (spaceDigitIdx >= 0 ? upper.slice(0, spaceDigitIdx) : upper).trim().slice(0, MAX_MERCHANT_KEY_LENGTH);
     if (!merchantMap[key]) merchantMap[key] = [];
     merchantMap[key].push(t);
   }
@@ -428,7 +430,7 @@ export function detectMicroLeaks(transactions: Transaction[]): MicroLeak[] {
     if (t.amount >= 0) continue;
     const upper = t.description.toUpperCase();
     const spaceDigitIdx = upper.search(/ \d/);
-    const key = (spaceDigitIdx >= 0 ? upper.slice(0, spaceDigitIdx) : upper).trim().slice(0, 25);
+    const key = (spaceDigitIdx >= 0 ? upper.slice(0, spaceDigitIdx) : upper).trim().slice(0, MAX_MERCHANT_KEY_LENGTH);
     if (!merchantMap[key]) merchantMap[key] = [];
     merchantMap[key].push(t);
   }

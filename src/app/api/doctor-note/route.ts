@@ -55,7 +55,8 @@ export async function POST(request: NextRequest) {
           max_tokens: 300,
         });
         return NextResponse.json({ narrative: response.choices[0]?.message?.content || generateLocalNarrative(vitals) });
-      } catch {
+      } catch (openaiErr) {
+        console.error('OpenAI API error, falling back to local narrative:', openaiErr);
         return NextResponse.json({ narrative: generateLocalNarrative(vitals) });
       }
     }
