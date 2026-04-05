@@ -111,7 +111,7 @@ export default function DashboardPage() {
                   <h3 className="font-semibold text-slate-800">AI Financial Assessment</h3>
                 </div>
                 <div className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
-                  {doctorNote.replace(/\*\*/g, '')}
+                  {(() => doctorNote.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1').replace(/`(.+?)`/g, '$1').replace(/\[(.+?)\]\(.+?\)/g, '$1').replace(/^#{1,6}\s+/gm, '').trim())()} 
                 </div>
               </div>
             )}
